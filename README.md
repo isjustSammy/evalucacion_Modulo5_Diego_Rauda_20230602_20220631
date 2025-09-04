@@ -23,6 +23,8 @@ Dependencias que se utilizaron
 -npm install react-native-gesture-handler@^2.28.0
 -npm install react-native-safe-area-context@^4.10.1
 -npm install react-native-screens@^4.15.4
+-npm install @react-native-async-storage/async-storage
+
 
 ##################################################################################
 Link del video demostrativo
