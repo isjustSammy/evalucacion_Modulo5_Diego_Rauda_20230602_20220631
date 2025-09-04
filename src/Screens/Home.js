@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { database, auth } from '../config/Firebase';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import CardUsuarios from '../components/CardUsuarios';
 
 const Home = () => {
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarioActual, setUsuarioActual] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(database, 'usuarios'), orderBy('creado', 'desc'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const docs = [];
-      querySnapshot.forEach((doc) => {
-        docs.push({ id: doc.id, ...doc.data() });
+    const user = auth.currentUser;
+    if (user) {
+      const q = query(collection(database, 'usuarios'), where('uid', '==', user.uid));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const userData = doc.data();
+          setUsuarioActual({ id: doc.id, ...userData });
+        });
       });
-      setUsuarios(docs);
-    });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, []);
 
   const handleLogout = () => {
@@ -33,29 +35,21 @@ const Home = () => {
       });
   };
 
-  const renderItem = ({ item }) => (
-    <CardUsuarios
-      id={item.id}
-      nombre={item.nombre}
-      correo={item.correo}
-      titulo={item.titulo}
-      anioGraduacion={item.anioGraduacion}
-    />
-  );
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Usuarios Registrados</Text>
+      <Text style={styles.title}>Bienvenido de vuelta</Text>
+      {usuarioActual && <Text style={styles.userName}>{usuarioActual.nombre}</Text>}
 
-      {usuarios.length !== 0 ? (
-        <FlatList
-          data={usuarios}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.list}
+      {usuarioActual ? (
+        <CardUsuarios
+          id={usuarioActual.id}
+          nombre={usuarioActual.nombre}
+          correo={usuarioActual.correo}
+          titulo={usuarioActual.titulo}
+          anioGraduacion={usuarioActual.anioGraduacion}
         />
       ) : (
-        <Text style={styles.subtitle}>No hay usuarios registrados</Text>
+        <Text style={styles.subtitle}>Cargando datos del usuario...</Text>
       )}
 
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -78,7 +72,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  userName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 20,
+    color: '#ff9800',
   },
   subtitle: {
     fontSize: 20,
@@ -86,9 +87,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     color: '#ff9800',
-  },
-  list: {
-    flexGrow: 1,
   },
   logoutButton: {
     backgroundColor: '#d32f2f',
