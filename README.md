@@ -1,11 +1,9 @@
-##################################################################################
-
 Integrantes
-Rodolfo Antonio Perez Hernandez 20230300
-Kendrick Daniel Lopez Carrillos 20200165
+Diego Jose Rodriguez Pocasangre 20230602
+Oscar Sebastian Rauda Palacios 20220631 
 
 
-##################################################################################
+
 
 Dependencias que se utilizaron
 
@@ -26,6 +24,5 @@ Dependencias que se utilizaron
 -npm install @react-native-async-storage/async-storage
 
 
-##################################################################################
+
 Link del video demostrativo
-https://drive.google.com/drive/folders/1cVz_M-oWiO_PcPnYkaeQxh25xP5DbXZn?usp=drive_link
