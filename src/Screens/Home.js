@@ -37,24 +37,34 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bienvenido de vuelta</Text>
-      {usuarioActual && <Text style={styles.userName}>{usuarioActual.nombre}</Text>}
+      <View style={styles.header}>
+        <Text style={styles.title}>Bienvenido de vuelta</Text>
+        {usuarioActual && <Text style={styles.userName}>{usuarioActual.nombre}</Text>}
+      </View>
 
-      {usuarioActual ? (
-        <CardUsuarios
-          id={usuarioActual.id}
-          nombre={usuarioActual.nombre}
-          correo={usuarioActual.correo}
-          titulo={usuarioActual.titulo}
-          anioGraduacion={usuarioActual.anioGraduacion}
-        />
-      ) : (
-        <Text style={styles.subtitle}>Cargando datos del usuario...</Text>
-      )}
+      <View style={styles.content}>
+        {usuarioActual ? (
+          <View style={styles.cardContainer}>
+            <CardUsuarios
+              id={usuarioActual.id}
+              nombre={usuarioActual.nombre}
+              correo={usuarioActual.correo}
+              titulo={usuarioActual.titulo}
+              anioGraduacion={usuarioActual.anioGraduacion}
+            />
+          </View>
+        ) : (
+          <View style={styles.loadingContainer}>
+            <Text style={styles.subtitle}>Cargando datos del usuario...</Text>
+          </View>
+        )}
+      </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutButtonText}>Cerrar Sesión</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -64,40 +74,101 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FEFEFE',
-    justifyContent: 'center',
-    padding: 20,
+    backgroundColor: '#f8f9ff',
+  },
+  header: {
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+    backgroundColor: '#6366f1',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    shadowColor: '#6366f1',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontWeight: '700',
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
+    color: '#ffffff',
+    letterSpacing: 0.5,
   },
   userName: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: '600',
     textAlign: 'center',
-    marginBottom: 20,
-    color: '#ff9800',
+    color: '#fbbf24',
+    letterSpacing: 0.3,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    justifyContent: 'center',
+  },
+  cardContainer: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  loadingContainer: {
+    backgroundColor: '#ffffff',
+    padding: 30,
+    borderRadius: 20,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
     textAlign: 'center',
-    marginBottom: 10,
-    color: '#ff9800',
+    color: '#6366f1',
+    letterSpacing: 0.3,
+  },
+  footer: {
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    paddingTop: 20,
   },
   logoutButton: {
-    backgroundColor: '#d32f2f',
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 20,
-    marginHorizontal: 50,
+    backgroundColor: '#ef4444',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderRadius: 25,
+    marginHorizontal: 20,
+    shadowColor: '#ef4444',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   logoutButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: '#ffffff',
+    fontWeight: '700',
+    fontSize: 16,
     textAlign: 'center',
+    letterSpacing: 0.5,
   },
 });

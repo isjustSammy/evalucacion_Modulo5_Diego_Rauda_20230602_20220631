@@ -42,6 +42,12 @@ const Login = () => {
       style={styles.keyboardContainer}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.backgroundDecor}>
+          <View style={styles.circle1} />
+          <View style={styles.circle2} />
+          <View style={styles.circle3} />
+        </View>
+        
         <View style={styles.loginContainer}>
           <View style={styles.headerContainer}>
             <Text style={styles.title}>Iniciar Sesión</Text>
@@ -57,6 +63,7 @@ const Login = () => {
             >
               <TextInput
                 placeholder="Correo electrónico"
+                placeholderTextColor="#94a3b8"
                 value={correo}
                 onChangeText={setCorreo}
                 keyboardType="email-address"
@@ -75,6 +82,7 @@ const Login = () => {
             >
               <TextInput
                 placeholder="Contraseña"
+                placeholderTextColor="#94a3b8"
                 value={contrasena}
                 onChangeText={setContrasena}
                 secureTextEntry
@@ -85,9 +93,7 @@ const Login = () => {
             </View>
 
             <TouchableOpacity style={styles.loginButton} onPress={iniciarSesion}>
-              <View style={styles.loginButtonGradient}>
-                <Text style={styles.loginButtonText}>Ingresar</Text>
-              </View>
+              <Text style={styles.loginButtonText}>Ingresar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => navigation.navigate('Registrarse')}>
@@ -105,21 +111,54 @@ export default Login;
 const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
-    backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Gradiente de fondo
+    backgroundColor: '#667eea',
   },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
     padding: 20,
   },
+  backgroundDecor: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  circle1: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: 'rgba(139, 92, 246, 0.3)',
+    top: -50,
+    right: -50,
+  },
+  circle2: {
+    position: 'absolute',
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+    bottom: 100,
+    left: -30,
+  },
+  circle3: {
+    position: 'absolute',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(59, 130, 246, 0.25)',
+    top: '40%',
+    right: 20,
+  },
   loginContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: 25,
     padding: 35,
     marginHorizontal: 5,
-    backdropFilter: 'blur(20px)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
     shadowColor: '#8b5cf6',
     shadowOffset: {
       width: 0,
@@ -136,8 +175,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '800',
-    background: 'linear-gradient(135deg, #8b5cf6, #3b82f6, #6366f1)',
-    backgroundClip: 'text',
     color: '#6d28d9',
     marginBottom: 12,
     textAlign: 'center',
@@ -155,19 +192,25 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   inputWrapper: {
-    backgroundColor: 'rgba(248, 250, 252, 0.8)',
+    backgroundColor: 'rgba(248, 250, 252, 0.9)',
     borderRadius: 16,
     marginBottom: 24,
     borderWidth: 1.5,
     borderColor: 'rgba(139, 92, 246, 0.2)',
     paddingHorizontal: 20,
     paddingVertical: 4,
-    position: 'relative',
-    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   inputWrapperFocused: {
     borderColor: '#8b5cf6',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
     borderWidth: 2,
     shadowColor: '#8b5cf6',
     shadowOffset: {
@@ -175,7 +218,7 @@ const styles = StyleSheet.create({
       height: 0,
     },
     shadowOpacity: 0.3,
-    shadowRadius: 12,
+    shadowRadius: 8,
     elevation: 8,
     transform: [{ scale: 1.02 }],
   },
@@ -191,7 +234,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 35,
     borderRadius: 16,
-    overflow: 'hidden',
+    backgroundColor: '#8b5cf6',
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: '#8b5cf6',
     shadowOffset: {
       width: 0,
@@ -201,77 +248,19 @@ const styles = StyleSheet.create({
     shadowRadius: 15,
     elevation: 10,
   },
-  loginButtonGradient: {
-    background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%)',
-    backgroundColor: '#8b5cf6', // Fallback para React Native
-    paddingVertical: 20,
-    paddingHorizontal: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    position: 'relative',
-    overflow: 'hidden',
-  },
   loginButtonText: {
     color: '#ffffff',
     fontSize: 19,
     fontWeight: '700',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
   },
   registerButtonText: {
     textAlign: 'center',
-    background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
-    backgroundClip: 'text',
-    color: '#8b5cf6', // Fallback
+    color: '#8b5cf6',
     fontSize: 17,
     fontWeight: '600',
     textDecorationLine: 'underline',
-    textDecorationColor: '#8b5cf6',
     letterSpacing: 0.5,
-  },
-  // Efectos adicionales para mejorar la experiencia visual
-  glowEffect: {
-    position: 'absolute',
-    top: -2,
-    left: -2,
-    right: -2,
-    bottom: -2,
-    background: 'linear-gradient(135deg, #8b5cf6, #6366f1, #3b82f6)',
-    borderRadius: 18,
-    opacity: 0,
-    zIndex: -1,
-  },
-  shimmerOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: '-100%',
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-    borderRadius: 16,
-  },
-  // Elementos decorativos opcionales
-  backgroundPattern: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.1,
-    background: 'radial-gradient(circle at 20% 80%, #8b5cf6 0%, transparent 50%), radial-gradient(circle at 80% 20%, #6366f1 0%, transparent 50%)',
-  },
-  accentDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#8b5cf6',
-    position: 'absolute',
-    top: 15,
-    right: 15,
-    opacity: 0.6,
   },
 });

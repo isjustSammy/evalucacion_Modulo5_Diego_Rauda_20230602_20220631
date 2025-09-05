@@ -79,11 +79,18 @@ const LoadingScreen = () => {
  
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2', '#667eea']}
+      colors={['#1e3a8a', '#3b82f6', '#6366f1', '#8b5cf6']}
       style={styles.container}
-      locations={[0, 0.5, 1]}
+      locations={[0, 0.3, 0.7, 1]}
     >
       <StatusBar barStyle="light-content" />
+      
+      {/* Elementos decorativos de fondo */}
+      <View style={styles.backgroundDecor}>
+        <View style={styles.floatingCircle1} />
+        <View style={styles.floatingCircle2} />
+        <View style={styles.floatingCircle3} />
+      </View>
      
       <Animated.View
         style={[
@@ -98,29 +105,33 @@ const LoadingScreen = () => {
         <Animated.View style={[styles.titleContainer, { transform: [{ scale: pulseAnim }] }]}>
           <Text style={styles.title}>Evaluación</Text>
           <Text style={styles.subtitle}>Módulo 5</Text>
+          <View style={styles.titleUnderline} />
         </Animated.View>
  
-        {/* Spinner animado */}
-        <Animated.View
-          style={[
-            styles.spinnerContainer,
-            {
-              transform: [{ rotate: spin }],
-            },
-          ]}
-        >
-          <View style={styles.spinner}>
-            <View style={styles.spinnerDot1} />
-            <View style={styles.spinnerDot2} />
-            <View style={styles.spinnerDot3} />
-            <View style={styles.spinnerDot4} />
-          </View>
-        </Animated.View>
+        {/* Spinner animado mejorado */}
+        <View style={styles.spinnerWrapper}>
+          <Animated.View
+            style={[
+              styles.spinnerContainer,
+              {
+                transform: [{ rotate: spin }],
+              },
+            ]}
+          >
+            <View style={styles.spinner}>
+              <View style={styles.spinnerDot1} />
+              <View style={styles.spinnerDot2} />
+              <View style={styles.spinnerDot3} />
+              <View style={styles.spinnerDot4} />
+            </View>
+          </Animated.View>
+          <View style={styles.spinnerGlow} />
+        </View>
  
         {/* Texto de carga */}
         <Text style={styles.loadingText}>Preparando evaluación...</Text>
  
-        {/* Barra de progreso */}
+        {/* Barra de progreso mejorada */}
         <View style={styles.progressContainer}>
           <View style={styles.progressBackground}>
             <Animated.View
@@ -131,15 +142,17 @@ const LoadingScreen = () => {
                 },
               ]}
             />
+            <View style={styles.progressShine} />
           </View>
+          <Text style={styles.progressText}>Cargando recursos...</Text>
         </View>
  
-        {/* Puntos de carga animados */}
+        {/* Puntos de carga animados mejorados */}
         <View style={styles.dotsContainer}>
           <Animated.View style={[styles.dot, { opacity: fadeAnim }]} />
           <Animated.View
             style={[
-              styles.dot,
+              styles.dotCenter,
               {
                 opacity: fadeAnim,
                 transform: [{ scale: pulseAnim }],
@@ -158,116 +171,220 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#667eea',
+  },
+  backgroundDecor: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  floatingCircle1: {
+    position: 'absolute',
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    top: 80,
+    right: -20,
+  },
+  floatingCircle2: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    bottom: 120,
+    left: -10,
+  },
+  floatingCircle3: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    top: '30%',
+    left: 30,
   },
   contentContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 20,
-    padding: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 30,
+    padding: 50,
     marginHorizontal: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 12,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 15,
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 20,
   },
   titleContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 50,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontSize: 36,
+    fontWeight: '800',
+    color: '#ffffff',
     textAlign: 'center',
-    marginBottom: 8,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
+    marginBottom: 5,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 8,
+    letterSpacing: 1,
   },
   subtitle: {
-    fontSize: 24,
-    fontWeight: '300',
-    color: '#f0f0f0',
+    fontSize: 22,
+    fontWeight: '400',
+    color: '#f1f5f9',
     textAlign: 'center',
-    opacity: 0.9,
+    opacity: 0.95,
+    letterSpacing: 2,
+    marginBottom: 15,
+  },
+  titleUnderline: {
+    width: 60,
+    height: 3,
+    backgroundColor: '#fbbf24',
+    borderRadius: 2,
+    marginTop: 8,
+  },
+  spinnerWrapper: {
+    position: 'relative',
+    marginBottom: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   spinnerContainer: {
-    marginBottom: 30,
+    zIndex: 2,
   },
   spinner: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     position: 'relative',
+  },
+  spinnerGlow: {
+    position: 'absolute',
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    zIndex: 1,
   },
   spinnerDot1: {
     position: 'absolute',
     top: 0,
     left: '50%',
-    width: 12,
-    height: 12,
-    backgroundColor: '#fff',
-    borderRadius: 6,
-    marginLeft: -6,
+    width: 14,
+    height: 14,
+    backgroundColor: '#ffffff',
+    borderRadius: 7,
+    marginLeft: -7,
+    shadowColor: '#fff',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 5,
   },
   spinnerDot2: {
     position: 'absolute',
     top: '50%',
     right: 0,
-    width: 10,
-    height: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    marginTop: -5,
+    width: 12,
+    height: 12,
+    backgroundColor: '#fbbf24',
+    borderRadius: 6,
+    marginTop: -6,
+    shadowColor: '#fbbf24',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 4,
   },
   spinnerDot3: {
     position: 'absolute',
     bottom: 0,
     left: '50%',
-    width: 8,
-    height: 8,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 4,
-    marginLeft: -4,
+    width: 10,
+    height: 10,
+    backgroundColor: '#f1f5f9',
+    borderRadius: 5,
+    marginLeft: -5,
+    shadowColor: '#f1f5f9',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 3,
+    elevation: 3,
   },
   spinnerDot4: {
     position: 'absolute',
     top: '50%',
     left: 0,
-    width: 10,
-    height: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-    marginTop: -5,
+    width: 12,
+    height: 12,
+    backgroundColor: '#fbbf24',
+    borderRadius: 6,
+    marginTop: -6,
+    shadowColor: '#fbbf24',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 4,
   },
   loadingText: {
-    fontSize: 18,
-    color: '#fff',
+    fontSize: 19,
+    color: '#ffffff',
     textAlign: 'center',
-    marginBottom: 30,
-    opacity: 0.9,
-    fontWeight: '300',
+    marginBottom: 35,
+    opacity: 0.95,
+    fontWeight: '500',
+    letterSpacing: 0.5,
   },
   progressContainer: {
     width: '100%',
-    marginBottom: 25,
+    marginBottom: 30,
+    alignItems: 'center',
   },
   progressBackground: {
     width: '100%',
-    height: 6,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-    borderRadius: 3,
+    height: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    borderRadius: 4,
     overflow: 'hidden',
+    position: 'relative',
+    marginBottom: 12,
   },
   progressBar: {
     height: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 3,
+    backgroundColor: '#fbbf24',
+    borderRadius: 4,
+    shadowColor: '#fbbf24',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  progressShine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    height: 2,
+    borderRadius: 1,
+  },
+  progressText: {
+    fontSize: 14,
+    color: '#f1f5f9',
+    opacity: 0.8,
+    fontWeight: '400',
   },
   dotsContainer: {
     flexDirection: 'row',
@@ -275,11 +392,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#fff',
-    marginHorizontal: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#f1f5f9',
+    marginHorizontal: 6,
+    opacity: 0.7,
+  },
+  dotCenter: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#fbbf24',
+    marginHorizontal: 6,
+    shadowColor: '#fbbf24',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 4,
+    elevation: 4,
   },
 });
  

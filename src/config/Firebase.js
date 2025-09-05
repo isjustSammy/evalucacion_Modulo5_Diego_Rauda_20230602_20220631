@@ -5,14 +5,24 @@ import { getAuth } from 'firebase/auth'; // hola
 
 // Tu configuración (ya está bien)
 const firebaseConfig = {
-  apiKey: "AIzaSyCpXnrGF4ymG0lFxC9EViMSIZAuagnRwnM",
-  authDomain: "evaluacion-modulo5-ad644.firebaseapp.com",
-  projectId: "evaluacion-modulo5-ad644",
-  storageBucket: "evaluacion-modulo5-ad644.appspot.com", 
-  messagingSenderId: "301329916514",
-  appId: "1:301329916514:web:90e2bdbfbc8f77072d673b"
+ 
+  apiKey: "AIzaSyCVeJIWBNYiDc3iRFtZ0b7bbcfHJ9WJHEo",
+ 
+  authDomain: "actividad-evaluadad-2a.firebaseapp.com",
+ 
+  projectId: "actividad-evaluadad-2a",
+ 
+  storageBucket: "actividad-evaluadad-2a.firebasestorage.app",
+ 
+  messagingSenderId: "458499734621",
+ 
+  appId: "1:458499734621:web:ce519b3410dd1fb4b5e1b4"
+ 
 };
+ 
 
+
+ 
 const app = initializeApp(firebaseConfig);
 
 const database = getFirestore(app);
